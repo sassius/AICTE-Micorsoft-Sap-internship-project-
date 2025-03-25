@@ -1,0 +1,56 @@
+import pandas as pd
+import numpy as np
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate heart disease dataset
+def generate_heart_disease_data(num_samples=1000):
+    # Create DataFrame with medical features
+    data = {
+        'patient_id': range(1, num_samples + 1),
+        'age': np.random.randint(30, 80, num_samples),
+        'sex': np.random.choice([0, 1], num_samples, p=[0.45, 0.55]),  # 0: Female, 1: Male
+        'chest_pain_type': np.random.choice([
+            'typical angina', 
+            'atypical angina', 
+            'non-anginal pain', 
+            'asymptomatic'
+        ], num_samples),
+        'resting_blood_pressure': np.random.normal(130, 20, num_samples).round(0),
+        'cholesterol': np.random.normal(220, 50, num_samples).round(0),
+        'fasting_blood_sugar_over_120': np.random.choice([0, 1], num_samples, p=[0.75, 0.25]),
+        'resting_ecg': np.random.choice([
+            'normal', 
+            'ST-T wave abnormality', 
+            'left ventricular hypertrophy'
+        ], num_samples),
+        'max_heart_rate': np.random.normal(160, 30, num_samples).round(0),
+        'exercise_induced_angina': np.random.choice([0, 1], num_samples, p=[0.67, 0.33]),
+        'st_depression': np.random.normal(1.5, 1, num_samples).round(2),
+        'st_slope': np.random.choice([
+            'upsloping', 
+            'flat', 
+            'downsloping'
+        ], num_samples),
+        'number_of_major_vessels': np.random.choice(range(4), num_samples),
+        'heart_disease_risk': np.random.choice([
+            'low', 
+            'moderate', 
+            'high'
+        ], num_samples, p=[0.6, 0.3, 0.1])
+    }
+    
+    # Create DataFrame
+    df = pd.DataFrame(data)
+    
+    # Save to CSV
+    df.to_csv('heart_disease_data.csv', index=False)
+    
+    return df
+
+# Generate and display dataset
+heart_data = generate_heart_disease_data()
+print(heart_data.head())
+print("\nDataset Information:")
+print(heart_data.info())
